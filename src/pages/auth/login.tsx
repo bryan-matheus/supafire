@@ -5,4 +5,4 @@ function Login() {
   return <Auth />
 }
 
-export default Auth;
+export default Login;
