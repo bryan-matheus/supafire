@@ -1,24 +1,24 @@
 import React, { useCallback, useState } from 'react'
-import { useForm } from 'react-hook-form';
-import { supabase } from '../../services/SupabaseClient';
+import { useForm } from 'react-hook-form'
+import { supabase } from '../../services/SupabaseClient'
 
 type Inputs = {
-  email: string;
+  email: string
 }
 
-function Login() {
+export default function Home() {
   const {
     register, 
     handleSubmit,
     formState: {errors}
-  } = useForm<Inputs>();
+  } = useForm<Inputs>()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
   const onSubmit = useCallback(async ({email}) => {
     try {
       setLoading(true)
-      const {  error } = await supabase.auth.signIn({ email })
+      const { error } = await supabase.auth.signIn({email})
 
       if (error) throw error
 
@@ -28,10 +28,10 @@ function Login() {
     } finally {
       setLoading(false)
     }
-  }, []);
+  }, [])
 
   return (
-    <main className={"flex justify-center align-center w-screen h-screen bg-gray-900 text-white"}>
+    <main className={"w-screen h-screen flex justify-center bg-gray-900 text-white"}>
         <form onSubmit={handleSubmit(onSubmit)}
               className={"flex justify-center align-center flex-col w-3/12"}>
             {success ? (
@@ -54,7 +54,5 @@ function Login() {
             </>}
         </form>
     </main>
-  );
+  )
 }
-
-export default Login;
