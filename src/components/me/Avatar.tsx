@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { supabase } from '../../services/SupabaseClient'
+import { nanoid } from 'nanoid'
 import { UserIcon, CameraIcon, DotsHorizontalIcon } from '@heroicons/react/solid'
 
 type Props = {
@@ -42,7 +43,7 @@ export default function Avatar({ url, size, onUpload }: Props) {
 
       const file = event.target.files[0];
       const fileExt = file.name.split(".").pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const fileName = `${nanoid(10)}_${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 
       let { error: uploadError } = await supabase.storage
